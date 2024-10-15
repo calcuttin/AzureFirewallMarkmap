@@ -5,6 +5,7 @@ This project provides a Python script that parses firewall rules from a markdown
 ## Table of Contents
 - [Overview](#overview)
 - [Requirements](#requirements)
+- [Sample Firewall Rules (Terraform-style)](#sample-firewall-rules-terraform-style)
 - [Instructions](#instructions)
   - [1. Parse Firewall Rules](#1-parse-firewall-rules)
   - [2. Generate Markmap](#2-generate-markmap)
@@ -26,17 +27,37 @@ This Python script reads firewall rules from a markdown file, processes them, an
 - **Python 3.x**: Make sure you have Python installed.
 - **Markmap CLI** or **Markmap extension** for rendering the markdown as a mind map.
 
-## Instructions
+## Sample Firewall Rules (Terraform-style)
 
-### 1. Parse Firewall Rules
+Below is an example of firewall rules written in a Terraform-style format. The Python script parses markdown files similar to this format, extracting relevant information such as `source_addresses`, `destination_addresses`, `protocols`, and `actions`.
 
-The `parse_markdown_rules()` function reads a markdown file containing firewall rules and extracts the relevant data such as source addresses, destination addresses, protocols, and actions.
+```markdown
+## Network Rules
 
-### 2. Generate Markmap
+```terraform
+resource "firewall_rule" "internal_to_cloud" {
+  name                  = "Internal_to_Cloud"
+  action                = "allow"
+  source_addresses      = ["192.168.1.0/24"]
+  destination_addresses = ["10.0.0.1", "10.0.0.2"]
+  protocols             = ["tcp", "udp"]
+}
 
-The `create_markmap()` function generates a Markmap-compatible markdown file. You can break down the rules into smaller sections for easier visualization (e.g., 25 or 50 rules per section).
+resource "firewall_rule" "cloud_to_internal" {
+  name                  = "Cloud_to_Internal"
+  action                = "allow"
+  source_addresses      = ["10.0.0.1", "10.0.0.2"]
+  destination_addresses = ["192.168.1.0/24"]
+  protocols             = ["tcp"]
+}
 
-### Script Example:
+resource "firewall_rule" "block_external" {
+  name                  = "Block_External_Access"
+  action                = "deny"
+  source_addresses      = ["0.0.0.0/0"]
+  destination_addresses = ["192.168.1.10"]
+  protocols             = ["tcp"]
+}
 
 ```python
 import re
