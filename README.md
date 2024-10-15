@@ -34,7 +34,7 @@ Below is an example of firewall rules written in a Terraform-style format. The P
 ```markdown
 ## Network Rules
 
-```terraform
+terraform
 resource "firewall_rule" "internal_to_cloud" {
   name                  = "Internal_to_Cloud"
   action                = "allow"
@@ -58,6 +58,22 @@ resource "firewall_rule" "block_external" {
   destination_addresses = ["192.168.1.10"]
   protocols             = ["tcp"]
 }
+```
+The above rules define various firewall policies, such as allowing or denying traffic between internal and cloud networks or blocking external access.
+
+## Instructions
+
+### 1. Parse Firewall Rules
+
+The parse_markdown_rules() function reads a markdown file containing firewall rules and extracts the relevant data such as source addresses, destination addresses, protocols, and actions.
+
+### 2. Generate Markmap
+
+The create_markmap() function generates a Markmap-compatible markdown file. You can break down the rules into smaller sections for easier visualization (e.g., 25 or 50 rules per section).
+
+Python Script
+
+Here’s the Python script that you can use to parse firewall rules and generate a mind map using Markmap:
 
 ```python
 import re
@@ -128,6 +144,33 @@ output_markdown_file = 'firewall_rules_markmap.md'  # This will be the output fo
 
 # Parse the rules
 parsed_rules = parse_markdown_rules(input_file_path)
+```
+## 3. Rendering the Mind Map
 
-# Create the Markmap-compatible markdown file, breaking it into sections of 25 rules per section
-create_markmap(parsed_rules, output_markdown_file, rules_per_section=25)
+Once the markdown file is generated, you can render the mind map in one of the following ways:
+
+## Option 1: Use Markmap CLI
+
+  ### 1.	Install Markmap CLI globally:
+ ```bash
+npm install -g markmap-cli
+```
+ ### 2.	Open the generated markdown file:
+ ```bash
+markmap firewall_rules_markmap.md
+```
+This will open the mind map in your default browser.
+
+## Option 2: Use Visual Studio Code with Markmap Extension
+
+1. Install the [Markmap extension](https://marketplace.visualstudio.com/items?itemName=gera2ld.markmap-vscode) in Visual Studio Code.
+2. Open the firewall_rules_markmap.md file in VSCode.
+3. Right-click and select Markmap: Open Preview to view the mind map.
+
+# Customization
+
+•	Adjust Rules per Section: You can modify the rules_per_section parameter in the create_markmap() function to control how many rules appear in each section
+```python
+create_markmap(parsed_rules, output_markdown_file, rules_per_section=50)
+```
+Render Formats: You can adjust the Markmap output format (SVG, PNG, etc.) using Markmap’s CLI options.
