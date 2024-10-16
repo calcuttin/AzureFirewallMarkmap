@@ -177,12 +177,43 @@ create_markmap(parsed_rules, output_markdown_file, rules_per_section=50)
 Render Formats: You can adjust the Markmap output format (SVG, PNG, etc.) using Markmap’s CLI options.
 
 # Destination NAT Rules
+## Sample Destination NAT Rules (Sanitized Markdown-style)
 
+Below is an example of sanitized DNAT rules written in markdown format. The Python script parses files similar to this format, extracting relevant information such as `destination_address`, `translated_address`, `translated_port`, `protocols`, and `action`.
+
+```markdown
+nat_rule_collection {
+    action   = "Dnat"
+    name     = "sanitizedRuleCollection"
+    priority = 100
+    rule {
+      destination_address = "203.0.113.5"
+      destination_ports   = ["80"]
+      name                = "http-traffic"
+      protocols           = ["TCP"]
+      source_addresses    = ["0.0.0.0/0"]
+      translated_address  = "10.0.0.1"
+      translated_port     = 8080
+    }
+    rule {
+      destination_address = "203.0.113.5"
+      destination_ports   = ["443"]
+      name                = "https-traffic"
+      protocols           = ["TCP"]
+      source_addresses    = ["0.0.0.0/0"]
+      translated_address  = "10.0.0.2"
+      translated_port     = 8443
+    }
+}
+```
 ## Instructions
 
 ### 1. Parse DNAT Rules
 
 The parse_markdown_rules() function reads a markdown file containing DNAT rules and extracts the relevant data such as destination addresses, protocols, and translated addresses.
+
+
+
 
 ### 2. Generate Markmap
 
