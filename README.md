@@ -310,6 +310,9 @@ This will open the mind map in your default browser.
 create_markmap(parsed_rules, output_markdown_file, rules_per_section=50)
 ```
 Render Formats: You can adjust the Markmap output format (SVG, PNG, etc.) using Markmap’s CLI options.
+<img width="1020" alt="firewallex" src="https://github.com/user-attachments/assets/559893f0-9218-4239-9c9b-a6cb18e5e156">
+
+
 
 # Destination NAT Rules
 ## Sample Destination NAT Rules (Sanitized Markdown-style)
@@ -467,3 +470,4 @@ parsed_rules = parse_markdown_rules(input_file_path)
 # Create the Markmap-compatible markdown file, breaking it into sections of 25 rules per section
 create_markmap(parsed_rules, output_markdown_file, rules_per_section=25)
 ```
+<img width="1265" alt="dnatex" src="https://github.com/user-attachments/assets/bb8c3e1a-0b7f-4364-bf66-9ff6d7d4cd64">
