@@ -35,29 +35,164 @@ Below is an example of firewall rules written in a Terraform-style format. The P
 ```markdown
 ## Network Rules
 
-terraform
-resource "firewall_rule" "internal_to_cloud" {
-  name                  = "Internal_to_Cloud"
-  action                = "allow"
-  source_addresses      = ["192.168.1.0/24"]
-  destination_addresses = ["10.0.0.1", "10.0.0.2"]
-  protocols             = ["tcp", "udp"]
+rule {
+    description           = null
+    destination_addresses = ["192.0.2.1", "192.0.2.2"]
+    destination_fqdns     = []
+    destination_ip_groups = []
+    destination_ports     = ["*"]
+    name                  = "Rule_1"
+    protocols             = ["Any"]
+    source_addresses      = ["198.51.100.1"]
+    source_ip_groups      = []
 }
-
-resource "firewall_rule" "cloud_to_internal" {
-  name                  = "Cloud_to_Internal"
-  action                = "allow"
-  source_addresses      = ["10.0.0.1", "10.0.0.2"]
-  destination_addresses = ["192.168.1.0/24"]
-  protocols             = ["tcp"]
+rule {
+    description           = null
+    destination_addresses = ["198.51.100.1"]
+    destination_fqdns     = []
+    destination_ip_groups = []
+    destination_ports     = ["*"]
+    name                  = "Rule_2"
+    protocols             = ["Any"]
+    source_addresses      = ["192.0.2.1", "192.0.2.2"]
+    source_ip_groups      = []
 }
-
-resource "firewall_rule" "block_external" {
-  name                  = "Block_External_Access"
-  action                = "deny"
-  source_addresses      = ["0.0.0.0/0"]
-  destination_addresses = ["192.168.1.10"]
-  protocols             = ["tcp"]
+network_rule_collection {
+    action   = "Allow"
+    name     = "Connector"
+    priority = 100
+    rule {
+        description           = null
+        destination_addresses = ["*"]
+        destination_fqdns     = []
+        destination_ip_groups = []
+        destination_ports     = ["*"]
+        name                  = "Rule_3"
+        protocols             = ["Any"]
+        source_addresses      = ["192.0.2.3"]
+        source_ip_groups      = []
+    }
+    rule {
+        description           = null
+        destination_addresses = ["*"]
+        destination_fqdns     = []
+        destination_ip_groups = []
+        destination_ports     = ["*"]
+        name                  = "Allow_ICMP_Local"
+        protocols             = ["ICMP"]
+        source_addresses      = ["198.51.100.0/24"]
+        source_ip_groups      = []
+    }
+    rule {
+        description           = null
+        destination_addresses = ["192.0.2.3"]
+        destination_fqdns     = []
+        destination_ip_groups = []
+        destination_ports     = ["22"]
+        name                  = "Allow_SSH_Local"
+        protocols             = ["Any"]
+        source_addresses      = ["198.51.100.0/24"]
+        source_ip_groups      = []
+    }
+    rule {
+        description           = null
+        destination_addresses = ["192.0.2.3"]
+        destination_fqdns     = []
+        destination_ip_groups = []
+        destination_ports     = ["*"]
+        name                  = "Allow_ICMP_External"
+        protocols             = ["ICMP"]
+        source_addresses      = ["*"]
+        source_ip_groups      = []
+    }
+    rule {
+        description           = null
+        destination_addresses = ["192.0.2.4"]
+        destination_fqdns     = []
+        destination_ip_groups = []
+        destination_ports     = ["*"]
+        name                  = "Allow_DataBroker_Traffic"
+        protocols             = ["Any"]
+        source_addresses      = ["198.51.100.0/24"]
+        source_ip_groups      = []
+    }
+    rule {
+        description           = null
+        destination_addresses = ["198.51.100.0/24"]
+        destination_fqdns     = []
+        destination_ip_groups = []
+        destination_ports     = ["*"]
+        name                  = "DataBroker_To_Internal"
+        protocols             = ["Any"]
+        source_addresses      = ["192.0.2.4"]
+        source_ip_groups      = []
+    }
+    rule {
+        description           = null
+        destination_addresses = ["192.0.2.5"]
+        destination_fqdns     = []
+        destination_ip_groups = []
+        destination_ports     = ["*"]
+        name                  = "DataBroker_To_Storage"
+        protocols             = ["Any"]
+        source_addresses      = ["192.0.2.4"]
+        source_ip_groups      = []
+    }
+    rule {
+        description           = null
+        destination_addresses = ["192.0.2.5"]
+        destination_fqdns     = []
+        destination_ip_groups = []
+        destination_ports     = ["*"]
+        name                  = "Storage_To_Cloud"
+        protocols             = ["Any"]
+        source_addresses      = ["198.51.100.0/24"]
+        source_ip_groups      = []
+    }
+    rule {
+        description           = null
+        destination_addresses = ["192.0.2.6"]
+        destination_fqdns     = []
+        destination_ip_groups = []
+        destination_ports     = ["*"]
+        name                  = "Storage_To_DataCenter"
+        protocols             = ["Any"]
+        source_addresses      = ["192.0.2.5"]
+        source_ip_groups      = []
+    }
+    rule {
+        description           = null
+        destination_addresses = ["192.0.2.5"]
+        destination_fqdns     = []
+        destination_ip_groups = []
+        destination_ports     = ["*"]
+        name                  = "DataCenter_To_Storage"
+        protocols             = ["Any"]
+        source_addresses      = ["192.0.2.6"]
+        source_ip_groups      = []
+    }
+    rule {
+        description           = null
+        destination_addresses = ["192.0.2.7"]
+        destination_fqdns     = []
+        destination_ip_groups = []
+        destination_ports     = ["*"]
+        name                  = "Allow_FileSync_Server"
+        protocols             = ["Any"]
+        source_addresses      = ["198.51.0.0/16"]
+        source_ip_groups      = []
+    }
+    rule {
+        description           = null
+        destination_addresses = ["198.51.0.0/16"]
+        destination_fqdns     = []
+        destination_ip_groups = []
+        destination_ports     = ["*"]
+        name                  = "FileSync_Backup"
+        protocols             = ["Any"]
+        source_addresses      = ["192.0.2.7"]
+        source_ip_groups      = []
+    }
 }
 ```
 The above rules define various firewall policies, such as allowing or denying traffic between internal and cloud networks or blocking external access.
@@ -182,27 +317,56 @@ Render Formats: You can adjust the Markmap output format (SVG, PNG, etc.) using 
 Below is an example of sanitized DNAT rules written in markdown format. The Python script parses files similar to this format, extracting relevant information such as `destination_address`, `translated_address`, `translated_port`, `protocols`, and `action`.
 
 ```markdown
+## DNAT Rules
+
 nat_rule_collection {
     action   = "Dnat"
     name     = "sanitizedRuleCollection"
     priority = 100
     rule {
-      destination_address = "203.0.113.5"
-      destination_ports   = ["80"]
-      name                = "http-traffic"
+      destination_address = "203.0.113.1"
+      destination_ports   = ["22"]
+      name                = "Rule_1"
       protocols           = ["TCP"]
-      source_addresses    = ["0.0.0.0/0"]
-      translated_address  = "10.0.0.1"
-      translated_port     = 8080
+      source_addresses    = ["*"]
+      translated_address  = "192.0.2.1"
+      translated_port     = 22
     }
     rule {
-      destination_address = "203.0.113.5"
-      destination_ports   = ["443"]
-      name                = "https-traffic"
+      destination_address = "203.0.113.1"
+      destination_ports   = ["21"]
+      name                = "Rule_2"
       protocols           = ["TCP"]
-      source_addresses    = ["0.0.0.0/0"]
-      translated_address  = "10.0.0.2"
-      translated_port     = 8443
+      source_addresses    = ["*"]
+      translated_address  = "192.0.2.1"
+      translated_port     = 21
+    }
+    rule {
+      destination_address = "203.0.113.2"
+      destination_ports   = ["443"]
+      name                = "Rule_3"
+      protocols           = ["TCP"]
+      source_addresses    = ["*"]
+      translated_address  = "192.0.2.2"
+      translated_port     = 443
+    }
+    rule {
+      destination_address = "203.0.113.2"
+      destination_ports   = ["80"]
+      name                = "Rule_4"
+      protocols           = ["TCP"]
+      source_addresses    = ["*"]
+      translated_address  = "192.0.2.2"
+      translated_port     = 80
+    }
+    rule {
+      destination_address = "203.0.113.3"
+      destination_ports   = ["443"]
+      name                = "Rule_5"
+      protocols           = ["TCP"]
+      source_addresses    = ["*"]
+      translated_address  = "192.0.2.3"
+      translated_port     = 443
     }
 }
 ```
