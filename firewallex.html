@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.17.2/dist/style.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.17.2/dist/browser/index.js"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.17.2/dist/index.js"></script><script>(r => {
+                setTimeout(r);
+              })(() => {
+  const {
+    markmap,
+    mm
+  } = window;
+  const {
+    el
+  } = markmap.Toolbar.create(mm);
+  el.setAttribute('style', 'position:absolute;bottom:20px;right:20px');
+  document.body.append(el);
+})</script><script>((getMarkmap, getOptions, root2, jsonOptions) => {
+              const markmap = getMarkmap();
+              window.mm = markmap.Markmap.create(
+                "svg#mindmap",
+                (getOptions || markmap.deriveOptions)(jsonOptions),
+                root2
+              );
+            })(() => window.markmap,null,{"content":"Firewall Rules Mind Map","children":[{"content":"Section 1 (Rules 1 - 14)","children":[{"content":"Rule: Rule_1","children":[{"content":"Action: N/A","children":[],"payload":{"lines":"5,6"}},{"content":"Protocols: Any","children":[],"payload":{"lines":"6,7"}},{"content":"Source Addresses:","children":[{"content":"198.51.100.1","children":[],"payload":{"lines":"8,9"}}],"payload":{"lines":"7,9"}},{"content":"Destination Addresses:","children":[{"content":"192.0.2.1","children":[],"payload":{"lines":"10,11"}},{"content":"192.0.2.2","children":[],"payload":{"lines":"11,13"}}],"payload":{"lines":"9,13"}}],"payload":{"lines":"4,5"}},{"content":"Rule: Rule_2","children":[{"content":"Action: N/A","children":[],"payload":{"lines":"14,15"}},{"content":"Protocols: Any","children":[],"payload":{"lines":"15,16"}},{"content":"Source Addresses:","children":[{"content":"192.0.2.1","children":[],"payload":{"lines":"17,18"}},{"content":"192.0.2.2","children":[],"payload":{"lines":"18,19"}}],"payload":{"lines":"16,19"}},{"content":"Destination Addresses:","children":[{"content":"198.51.100.1","children":[],"payload":{"lines":"20,22"}}],"payload":{"lines":"19,22"}}],"payload":{"lines":"13,14"}},{"content":"Rule: Rule_3","children":[{"content":"Action: N/A","children":[],"payload":{"lines":"23,24"}},{"content":"Protocols: Any","children":[],"payload":{"lines":"24,25"}},{"content":"Source Addresses:","children":[{"content":"192.0.2.3","children":[],"payload":{"lines":"26,27"}}],"payload":{"lines":"25,27"}},{"content":"Destination Addresses:","children":[],"payload":{"lines":"27,30"}}],"payload":{"lines":"22,23"}},{"content":"Rule: Allow_ICMP_Local","children":[{"content":"Action: N/A","children":[],"payload":{"lines":"31,32"}},{"content":"Protocols: ICMP","children":[],"payload":{"lines":"32,33"}},{"content":"Source Addresses:","children":[{"content":"198.51.100.0/24","children":[],"payload":{"lines":"34,35"}}],"payload":{"lines":"33,35"}},{"content":"Destination Addresses:","children":[],"payload":{"lines":"35,38"}}],"payload":{"lines":"30,31"}},{"content":"Rule: Allow_SSH_Local","children":[{"content":"Action: N/A","children":[],"payload":{"lines":"39,40"}},{"content":"Protocols: Any","children":[],"payload":{"lines":"40,41"}},{"content":"Source Addresses:","children":[{"content":"198.51.100.0/24","children":[],"payload":{"lines":"42,43"}}],"payload":{"lines":"41,43"}},{"content":"Destination Addresses:","children":[{"content":"192.0.2.3","children":[],"payload":{"lines":"44,46"}}],"payload":{"lines":"43,46"}}],"payload":{"lines":"38,39"}},{"content":"Rule: Allow_ICMP_External","children":[{"content":"Action: N/A","children":[],"payload":{"lines":"47,48"}},{"content":"Protocols: ICMP","children":[],"payload":{"lines":"48,49"}},{"content":"Source Addresses:","children":[],"payload":{"lines":"49,51"}},{"content":"Destination Addresses:","children":[{"content":"192.0.2.3","children":[],"payload":{"lines":"52,54"}}],"payload":{"lines":"51,54"}}],"payload":{"lines":"46,47"}},{"content":"Rule: Allow_DataBroker_Traffic","children":[{"content":"Action: N/A","children":[],"payload":{"lines":"55,56"}},{"content":"Protocols: Any","children":[],"payload":{"lines":"56,57"}},{"content":"Source Addresses:","children":[{"content":"198.51.100.0/24","children":[],"payload":{"lines":"58,59"}}],"payload":{"lines":"57,59"}},{"content":"Destination Addresses:","children":[{"content":"192.0.2.4","children":[],"payload":{"lines":"60,62"}}],"payload":{"lines":"59,62"}}],"payload":{"lines":"54,55"}},{"content":"Rule: DataBroker_To_Internal","children":[{"content":"Action: N/A","children":[],"payload":{"lines":"63,64"}},{"content":"Protocols: Any","children":[],"payload":{"lines":"64,65"}},{"content":"Source Addresses:","children":[{"content":"192.0.2.4","children":[],"payload":{"lines":"66,67"}}],"payload":{"lines":"65,67"}},{"content":"Destination Addresses:","children":[{"content":"198.51.100.0/24","children":[],"payload":{"lines":"68,70"}}],"payload":{"lines":"67,70"}}],"payload":{"lines":"62,63"}},{"content":"Rule: DataBroker_To_Storage","children":[{"content":"Action: N/A","children":[],"payload":{"lines":"71,72"}},{"content":"Protocols: Any","children":[],"payload":{"lines":"72,73"}},{"content":"Source Addresses:","children":[{"content":"192.0.2.4","children":[],"payload":{"lines":"74,75"}}],"payload":{"lines":"73,75"}},{"content":"Destination Addresses:","children":[{"content":"192.0.2.5","children":[],"payload":{"lines":"76,78"}}],"payload":{"lines":"75,78"}}],"payload":{"lines":"70,71"}},{"content":"Rule: Storage_To_Cloud","children":[{"content":"Action: N/A","children":[],"payload":{"lines":"79,80"}},{"content":"Protocols: Any","children":[],"payload":{"lines":"80,81"}},{"content":"Source Addresses:","children":[{"content":"198.51.100.0/24","children":[],"payload":{"lines":"82,83"}}],"payload":{"lines":"81,83"}},{"content":"Destination Addresses:","children":[{"content":"192.0.2.5","children":[],"payload":{"lines":"84,86"}}],"payload":{"lines":"83,86"}}],"payload":{"lines":"78,79"}},{"content":"Rule: Storage_To_DataCenter","children":[{"content":"Action: N/A","children":[],"payload":{"lines":"87,88"}},{"content":"Protocols: Any","children":[],"payload":{"lines":"88,89"}},{"content":"Source Addresses:","children":[{"content":"192.0.2.5","children":[],"payload":{"lines":"90,91"}}],"payload":{"lines":"89,91"}},{"content":"Destination Addresses:","children":[{"content":"192.0.2.6","children":[],"payload":{"lines":"92,94"}}],"payload":{"lines":"91,94"}}],"payload":{"lines":"86,87"}},{"content":"Rule: DataCenter_To_Storage","children":[{"content":"Action: N/A","children":[],"payload":{"lines":"95,96"}},{"content":"Protocols: Any","children":[],"payload":{"lines":"96,97"}},{"content":"Source Addresses:","children":[{"content":"192.0.2.6","children":[],"payload":{"lines":"98,99"}}],"payload":{"lines":"97,99"}},{"content":"Destination Addresses:","children":[{"content":"192.0.2.5","children":[],"payload":{"lines":"100,102"}}],"payload":{"lines":"99,102"}}],"payload":{"lines":"94,95"}},{"content":"Rule: Allow_FileSync_Server","children":[{"content":"Action: N/A","children":[],"payload":{"lines":"103,104"}},{"content":"Protocols: Any","children":[],"payload":{"lines":"104,105"}},{"content":"Source Addresses:","children":[{"content":"198.51.0.0/16","children":[],"payload":{"lines":"106,107"}}],"payload":{"lines":"105,107"}},{"content":"Destination Addresses:","children":[{"content":"192.0.2.7","children":[],"payload":{"lines":"108,110"}}],"payload":{"lines":"107,110"}}],"payload":{"lines":"102,103"}},{"content":"Rule: FileSync_Backup","children":[{"content":"Action: N/A","children":[],"payload":{"lines":"111,112"}},{"content":"Protocols: Any","children":[],"payload":{"lines":"112,113"}},{"content":"Source Addresses:","children":[{"content":"192.0.2.7","children":[],"payload":{"lines":"114,115"}}],"payload":{"lines":"113,115"}},{"content":"Destination Addresses:","children":[{"content":"198.51.0.0/16","children":[],"payload":{"lines":"116,118"}}],"payload":{"lines":"115,118"}}],"payload":{"lines":"110,111"}}],"payload":{"lines":"2,3"}}],"payload":{"lines":"0,1"}},{})</script>
+</body>
+</html>
